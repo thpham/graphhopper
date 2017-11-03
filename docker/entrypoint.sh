@@ -10,7 +10,7 @@ if [ -z "${JAVA_OPTS}" ]; then
     echo "Setting default JAVA_OPTS"
 fi
 
-RUN_ARGS=" -jar *.jar jetty.port=${JETTY_PORT:-8989} jetty.host=0.0.0.0 jetty.resourcebase=webapp config=config.properties datareader.file=$OSM_FILE"
+RUN_ARGS=" -jar *.jar jetty.port=${JETTY_PORT:-8989} jetty.host=0.0.0.0 jetty.resourcebase=webapp config=${CONFIG_FILE:-"config-example.properties"} datareader.file=$OSM_FILE"
 
 echo "JAVA_OPTS= ${JAVA_OPTS}"
 echo "RUN_ARGS= ${RUN_ARGS}"
