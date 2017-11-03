@@ -1,0 +1,30 @@
+version: "3.2"
+services:
+  graphhopper:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+      args:
+        MAP_FILE: europe_germany_berlin.pbf
+    image: graphhopper
+    expose:
+      - 8989
+    ports:
+      - 8989:8989
+    environment:
+      JETTY_PORT: 8989
+      JAVA_EXTRA_OPTS: "-Xmx1g -Xms1g -XX:+UseG1GC -XX:MetaspaceSize=100M"
+    volumes:
+      - ghp-data:/data
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "200k"
+        max-file: "10"
+
+volumes:
+  ghp-data:
+
+networks:
+  default:
