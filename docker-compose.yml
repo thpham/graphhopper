@@ -5,10 +5,10 @@ services:
       context: .
       dockerfile: ./docker/maps/Dockerfile
       args:
-        MAP_FILE: europe_germany_berlin.pbf
+        MAP_FILES: europe_germany_berlin.pbf
+        #MAP_FILES: north-america_us_california.pbf|europe_france_ile-de-france.pbf|europe_switzerland.pbf
+        JAVA_OPTS: "-Xmx4g -Xms4g -server"
     image: ghp-maps
-    environment:
-      JAVA_EXTRA_OPTS: "-Xmx1g -Xms1g -XX:+UseG1GC -XX:MetaspaceSize=100M"
     volumes:
       - ghp-data:/data
 
@@ -22,7 +22,7 @@ services:
       - 8989:8989
     environment:
       JETTY_PORT: 8989
-      JAVA_EXTRA_OPTS: "-Xmx1g -Xms1g -XX:+UseG1GC -XX:MetaspaceSize=100M"
+      JAVA_EXTRA_OPTS: "-Xmx4g -Xms4g -XX:+UseG1GC -XX:MetaspaceSize=500M"
       CONFIG_FILE: /graphhopper/config.properties
     volumes:
       - ./docker/maps/config.properties:/graphhopper/config.properties
